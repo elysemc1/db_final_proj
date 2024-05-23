@@ -93,19 +93,54 @@ CREATE TABLE EV_Yield (
     ev_strength INT,
     ev_ability VARCHAR(50),
     PRIMARY KEY (pokemon_id, ev_strength, ev_ability),
-    FOREIGN KEY (pokemon_id) REFERENCES Pokemon_Characters(pokemon_id) ON DELETE CASCADE
+    FOREIGN KEY (pokemon_id) REFERENCES Pokemon_Characters (pokemon_id) ON DELETE CASCADE
 )
 
 -- Create table: Evolutions
 CREATE TABLE Evolutions (
     PRIMARY KEY (evolved_id, original_id),
     -- RESTRICT: we CANNOT delete a Pokemon Character if they have existing evolutions
-    FOREIGN KEY (evolved_id) REFERENCES Pokemon_Characters(pokemon_id) ON DELETE RESTRICT,
-    FOREIGN KEY (original_id) REFERENCES Pokemon_Characters(pokemon_id) ON DELETE RESTRICT
+    FOREIGN KEY (evolved_id) REFERENCES Pokemon_Characters (pokemon_id) ON DELETE RESTRICT,
+    FOREIGN KEY (original_id) REFERENCES Pokemon_Characters (pokemon_id) ON DELETE RESTRICT
 )
 
 ------------------- 2. User and Team Associations -------------------
+-- Create table: Users
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT NOT NULL,
+    user_name VARCHAR(25) NOT NULL,
+    -- TODO write a trigger/function to update this value when user CRUDs a team
+    latest_team_id INT,
+    PRIMARY KEY (user_id, latest_team_id)
+)
+
+-- Create table: Teams
+CREATE TABLE Teams (
+    team_id INT AUTO_INCREMENT NOT NULL,
+    team_name VARCHAR(25) NOT NULL,
+    PRIMARY KEY (team_id, user_id),
+    -- CASCADE: if we delete a user, also delete their teams
+    FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE 
+)
+
+-- Create table: TeamMembers
+CREATE TABLE TeamMembers (
+    slot_id INT AUTO_INCREMENT NOT NULL,
+    pokemon_level INT NOT NULL,
+    PRIMARY KEY (team_id, user_id, slot_id)
+    -- RESTRICT: can't delete Pokemon that are members of a Team
+    FOREIGN KEY (pokemon_id) REFERENCES Pokemon_Characters (pokemon_id) ON DELETE RESTRICT
+    -- CASCADE: if we delete a team, delete all of its members
+    FOREIGN KEY (team_id) REFERENCES Teams (team_id) ON DELETE CASCADE
+    -- CASCADE: if we delete a user, also delete their team associations
+    FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE
+)
+
 -- Create table: Favorites
 CREATE TABLE Favorites (
-
+    PRIMARY KEY (user_id, pokemon_id),
+    -- CASCADE: if we delete a user, also delete their favorites
+    FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE,
+    -- RESTRICT: don't allow the deletion of a pokemon that's in use in someone's Favorites
+    FOREIGN KEY (pokemon_id) REFERENCES Pokemon_Characters (pokemon_id) ON DELETE RESTRICT
 )
