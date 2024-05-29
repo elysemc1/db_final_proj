@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS Pokemon_Characters (
     pokemon_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     -- assume no Pokemon will have a name longer than 50 characters
     pokemon_name VARCHAR(50) NOT NULL,
-    -- TODO implement a function to ensure 1 <= generation <= 9
     generation INT NOT NULL,
     height FLOAT NOT NULL,
     weight FLOAT NOT NULL,
@@ -123,7 +122,6 @@ CREATE TABLE IF NOT EXISTS Evolutions (
 CREATE TABLE IF NOT EXISTS Users (
     user_id INT AUTO_INCREMENT NOT NULL,
     user_name VARCHAR(25) NOT NULL,
-    -- TODO write a trigger/function to update this value when user CRUDs a team
     latest_team_id INT,
     PRIMARY KEY (user_id, latest_team_id)
 );
@@ -729,8 +727,134 @@ VALUES
     (4, 5),
     (4, 6);
 
--- //////////////////////// 4. TRIGGERS/FUNCTIONS ///////////////////////
+-- ////////////////////////// 4. SQL QUERIES //////////////////////////
+-- 6 queries of CREATE, RETRIEVE, UPDATE, DELETE (CRUD) operations
+-- 1) insert level 0 Squirtle into BuffTeam at slot 5 (C)
+INSERT INTO Team_Members (team_id, user_id, slot_id, pokemon_id, pokemon_level)
+VALUES (2, 1, 5, 7, 0); 
+
+-- 2) delete the level 0 Squirtle from BuffTeam using the primary key (D)
+DELETE FROM Team_Members
+WHERE team_id = 2
+AND slot_id = 5
+AND user_id = 1;
+
+-- 3) select all Pokemon in the database that are of the Water type (R)
+SELECT pokemon_name, type_name
+FROM Pokemon_Types, Pokemon_Characters 
+WHERE type_name = 'Water'
+AND Pokemon_Types.pokemon_id = Pokemon_Characters.pokemon_id;
+
+-- 4) level up the pokemon in slot 1 of NormieTeam (team 1) (U)
+UPDATE Team_Members 
+SET pokemon_level = pokemon_level + 1
+WHERE team_id = 1
+AND slot_id = 1
+AND user_id = 1;
+
+-- 5) show the next evolution of Bulbasaur (R)
+SELECT P1.pokemon_name, P2.pokemon_name AS 'evolved_name'
+FROM Pokemon_Characters P1, Evolutions
+JOIN Pokemon_Characters P2 ON P2.pokemon_id = Evolutions.evolved_id
+WHERE P1.pokemon_name = 'Bulbasaur'
+AND P1.pokemon_id = Evolutions.original_id;
+
+-- 6) show Pokemon that are in both NormieTeam and BuffTeam (R)
+SELECT pokemon_name
+FROM Pokemon_Characters, Team_Members
+WHERE Pokemon_Characters.pokemon_id IN (SELECT pokemon_id FROM Team_Members WHERE team_id = 1) 
+AND Pokemon_Characters.pokemon_id IN (SELECT pokemon_id FROM Team_Members WHERE team_id = 2)
+GROUP BY pokemon_name;
+
+-- //////////////////////// 5. TRIGGERS/FUNCTIONS /////////////////////
 -- require at least 3 triggers/functions/procedures
+-- 1) Insert a Pokemon to a Team via user name, team name, and pokemon name at level 0
+--    Make sure no more than 6 slots are filled
+DELIMITER //
+CREATE FUNCTION addToTeam(user_name VARCHAR(25), team_name VARCHAR(25), pokemon_name VARCHAR(50))
+    RETURNS INT -- return 0 if we were able to complete the insertion, 1 otherwise
+    
+    BEGIN
+        DECLARE sid INT;
+        SET sid = (SELECT MAX(slot_id) + 1 AS sid FROM Team_Members WHERE team_id IN (SELECT team_id FROM Teams WHERE Teams.team_name = team_name));
+        IF sid > 6 THEN
+            RETURN 1;
+        ELSE
+            INSERT INTO Team_Members (user_id, team_id, slot_id, pokemon_id, pokemon_level)
+            VALUES (
+                (SELECT user_id FROM Users WHERE Users.user_name = user_name),
+                (SELECT team_id FROM Teams WHERE Teams.team_name = team_name),
+                sid,
+                (SELECT pokemon_id FROM Pokemon_Characters WHERE Pokemon_Characters.pokemon_name = pokemon_name),
+                0
+            );
+        END IF;
+        RETURN 0;
+    END //
+DELIMITER ;
+-- Confirm the function works by adding two team members (Squirtle) and failing to add a third (since that would be more than 6 members)
+SELECT addToTeam('Ellie', 'BuffTeam', 'Squirtle');
+SELECT addToTeam('Ellie', 'BuffTeam', 'Squirtle');
+SELECT addToTeam('Ellie', 'BuffTeam', 'Squirtle');
+
+-- 2) Remove a Pokemon from a team via user_name, slot_id, and team_name
+--    Don't remove if there is only 1 member of the team
+DELIMITER //
+CREATE FUNCTION removeFromTeam(user_name VARCHAR(25), team_name VARCHAR(25), slot INT)
+    RETURNS INT -- return 0 if we were able to complete the deletion, 1 otherwise
+    
+    BEGIN
+        DECLARE sid INT; -- simply to make sure we won't end up with an empty team by removing a member
+        SET sid = (SELECT MAX(slot_id) - 1 AS sid FROM Team_Members WHERE team_id IN (SELECT team_id FROM Teams WHERE Teams.team_name = team_name));
+        IF sid < 1 THEN
+            RETURN 1;
+        ELSE
+            DELETE FROM Team_Members 
+            WHERE team_id = (SELECT team_id FROM Teams WHERE Teams.team_name = team_name)
+            AND user_id = (SELECT user_id FROM Users WHERE Users.user_name = user_name)
+            AND slot_id = slot;
+        END IF;
+        RETURN 0;
+    END //
+DELIMITER ;
+-- Confirm the function works by deleting the 2 previously added Squirtles
+SELECT removeFromTeam('Ellie', 'BuffTeam', 6);
+SELECT removeFromTeam('Ellie', 'BuffTeam', 5);
+
+-- 3) Add a pokemon to the user's favorites by user name and pokemon name 
+--    Make sure no more than 30 favorites exist
+DELIMITER //
+CREATE FUNCTION addToFavs(user_name VARCHAR(25), pokemon_name VARCHAR(50))
+    RETURNS INT -- return 0 if we were able to complete the insertion, 1 otherwise
+    
+    BEGIN
+        DECLARE num_favs INT; -- simply to make sure we won't end up with an empty team by removing a member
+        SET num_favs = (SELECT COUNT(user_id) AS num_favs FROM Favorites WHERE user_id IN (SELECT user_id FROM Users WHERE Users.user_name = user_name));
+        IF num_favs >= 30 THEN
+            RETURN 1;
+        ELSE
+            INSERT INTO Favorites (user_id, pokemon_id)
+            VALUES (
+                (SELECT user_id FROM Users WHERE Users.user_name = user_name),
+                (SELECT pokemon_id FROM Pokemon_Characters WHERE Pokemon_Characters.pokemon_name = pokemon_name)
+            );
+        END IF;
+        RETURN 0;
+    END //
+DELIMITER ;
+-- Confirm the function works by adding Squirtle and Bulbasaur to my favorites
+SELECT addToFavs('Ellie', 'Squirtle');
+SELECT addToFavs('Ellie', 'Bulbasaur');
+
+-- 4) Delete a pokemon from a user's favorites by user name and pokemon name
+-- TODO
+
+-- 5) Update latest_updated_team if a user inserts, deletes, or updates their teams/members
+-- 6) Search for Pokemon by type
+-- 7) Search for Pokemon by name
+-- 8) Search for Pokemon by ID
+-- 9) See a Pokemon's next evolution
+
 -- TODO write functions that simplify insertion (ex inserting by names rather than IDs)
 -- TODO write triggers that prevent inserting too many members in a team or leveling past 20
 -- TODO write a trigger to set the latest_team_id
