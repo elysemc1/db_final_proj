@@ -847,14 +847,104 @@ SELECT addToFavs('Ellie', 'Squirtle');
 SELECT addToFavs('Ellie', 'Bulbasaur');
 
 -- 4) Delete a pokemon from a user's favorites by user name and pokemon name
--- TODO
+DELIMITER //
+CREATE PROCEDURE delFromFavs(user_name VARCHAR(25), pokemon_name VARCHAR(50))
+    BEGIN
+        DELETE FROM Favorites
+        WHERE user_id = (SELECT user_id FROM Users WHERE Users.user_name = user_name)
+        AND pokemon_id = (SELECT pokemon_id FROM Pokemon_Characters WHERE Pokemon_Characters.pokemon_name = pokemon_name);
+    END //
+DELIMITER ;
+-- Confirm the function works by deleting Squirtle and Bulbasaur from my favorites
+CALL delFromFavs('Ellie', 'Squirtle');
+CALL delFromFavs('Ellie', 'Bulbasaur');
 
 -- 5) Update latest_updated_team if a user inserts, deletes, or updates their teams/members
--- 6) Search for Pokemon by type
--- 7) Search for Pokemon by name
--- 8) Search for Pokemon by ID
--- 9) See a Pokemon's next evolution
+DELIMITER //
+CREATE TRIGGER teamUpdate AFTER UPDATE ON Team_Members
+    FOR EACH ROW
+    BEGIN
+        UPDATE Users
+        SET Users.latest_team_id = NEW.team_id
+        WHERE user_id = NEW.user_id;
+    END //
+DELIMITER ;
+-- test this by updating the level on team 1
+UPDATE Team_Members
+SET pokemon_level = 10
+WHERE user_id = 1
+AND team_id = 1 
+AND pokemon_id = 1;
+-- another trigger for INSERT...
+DELIMITER //
+CREATE TRIGGER teamInsert AFTER INSERT ON Team_Members
+    FOR EACH ROW
+    BEGIN
+        UPDATE Users
+        SET Users.latest_team_id = NEW.team_id
+        WHERE user_id = NEW.user_id;
+    END //
+DELIMITER ;
+-- and another for DELETE
+DELIMITER //
+CREATE TRIGGER teamDelete AFTER DELETE ON Team_Members
+    FOR EACH ROW
+    BEGIN
+        UPDATE Users
+        -- set to null, which for an int is 0
+        SET Users.latest_team_id = 0
+        WHERE user_id = OLD.user_id;
+    END //
+DELIMITER ;
 
--- TODO write functions that simplify insertion (ex inserting by names rather than IDs)
--- TODO write triggers that prevent inserting too many members in a team or leveling past 20
--- TODO write a trigger to set the latest_team_id
+-- 6) Search for Pokemon by type
+DELIMITER //
+CREATE PROCEDURE searchByType(type_name VARCHAR(8))
+    BEGIN
+        SELECT Pokemon_Characters.*
+        FROM Pokemon_Characters
+        JOIN Pokemon_Types ON Pokemon_Characters.pokemon_id = Pokemon_Types.pokemon_id
+        WHERE Pokemon_Types.type_name = type_name;
+    END //
+DELIMITER ;
+-- test by searching for water type
+CALL searchByType('Water');
+
+-- 7) Search for Pokemon by name
+DELIMITER //
+CREATE PROCEDURE searchByName(pokemon_name VARCHAR(50))
+    BEGIN
+        SELECT Pokemon_Characters.*
+        FROM Pokemon_Characters
+        WHERE Pokemon_Characters.pokemon_name = pokemon_name;
+    END //
+DELIMITER ;
+-- test by searching for Squirtle
+CALL searchByName('Squirtle');
+
+-- 8) Search for Pokemon by ID
+DELIMITER //
+CREATE PROCEDURE searchById(pokemon_id INT)
+    BEGIN
+        SELECT Pokemon_Characters.*
+        FROM Pokemon_Characters
+        WHERE Pokemon_Characters.pokemon_id = pokemon_id;
+    END //
+DELIMITER ;
+-- test by searching for Pokemon with ID 9
+CALL searchById(9);
+
+-- 9) See a Pokemon's next evolution based on their name
+DELIMITER //
+CREATE PROCEDURE getEvolution(pokemon_name VARCHAR(50))
+    BEGIN
+        SELECT P1.pokemon_name, P2.pokemon_name AS 'evolved_name'
+        FROM Pokemon_Characters P1, Evolutions
+        JOIN Pokemon_Characters P2 ON P2.pokemon_id = Evolutions.evolved_id
+        WHERE P1.pokemon_name = pokemon_name
+        AND P1.pokemon_id = Evolutions.original_id;
+    END //
+DELIMITER ;
+-- get Caterpie's and Metapod's evolutions to test
+CALL getEvolution('Caterpie'); -- Metapod
+CALL getEvolution('Metapod'); -- Butterfree
