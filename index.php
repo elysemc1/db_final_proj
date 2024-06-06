@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-include 'pokeHeader.php';
+//include 'pokeHeader.php';
 
 ?>
 <body>
