@@ -6,7 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $team_name = $_POST['team_name'];
     $pokemon_ids = $_POST['pokemon_ids'];
 
-
+    // Assuming user_id is stored in session
+    $user_id = $_SESSION['user_id'];
 
     // Update team name
     $sql = "UPDATE Teams SET team_name = ? WHERE team_id = ?";
@@ -40,9 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $slot_id = $max_slot_id + 1;
     foreach ($pokemon_ids_to_add as $pokemon_id) {
         $pokemon_level = 1; // Default level, you might want to change this
-        $sql = "INSERT INTO Team_Members (team_id, slot_id, pokemon_id, pokemon_level) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Team_Members (team_id, user_id, slot_id, pokemon_id, pokemon_level) VALUES (?, ?, ?, ?, ?)";
         $stmt = $link->prepare($sql);
-        $stmt->bind_param('iiiii', $team_id, $slot_id, $pokemon_id, $pokemon_level);
+        $stmt->bind_param('iiiii', $team_id, $user_id, $slot_id, $pokemon_id, $pokemon_level);
         if (!$stmt->execute()) {
             die("Error adding team member: " . $stmt->error);
         }
@@ -99,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <h1>Edit Team</h1>
         <form action="updateTeam.php" method="post">
+            <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
             <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>">
             Team Name: <input type="text" name="team_name" value="<?php echo $team['team_name']; ?>" required><br>
             Select Pokémon: <br>
