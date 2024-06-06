@@ -30,8 +30,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr><td>" . $row["team_name"] . "</td><td>" . $row["user_name"] . "</td><td>" . $row["pokemon_names"] . "</td><td>
         <a href='updateTeam.php?team_id=" . $row["team_id"] . "'>Edit</a> | 
-        <a href='deleteTeam.php?team_id=" echo $row["team_id"];" onclick="return confirm('Are you sure you want to delete this team?');">Delete</a>
-</td></tr>";
+        <a href='deleteTeam.php?team_id=" . $row["team_id"] . "'>Delete</a></td></tr>";
     }
     echo "</table>";
 } else {
