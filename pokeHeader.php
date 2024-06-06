@@ -13,48 +13,25 @@
 	echo '<header>';
 	echo '<h1>Pokemon Database</h1>';
 	echo '</header>';
-
-
-	echo '<div class="navbar">';
+	echo '<nav>';
 
 	echo '<a href="index.php">Home</a>';
 
-	echo '<div class="dropdown">';
-	echo '<button class="dropbtn">Pokemon';
-	echo '<i class="fa fa-caret-down"></i>';
-	echo '</button>';
-	echo '<div class="dropdown-content">';
-	echo '<a href="searchPokemon.php">Search</a>';
-	echo '<a href="comparePokemon.php">Compare</a>';
-	echo '<a href="viewPokemon.php">View</a>';
-	echo '</div>';
-	echo '</div>';
+	echo '<a href="searchPokemon.php">Poke-Search</a>';
+	echo '<a href="comparePokemon.php">Poke-Compare</a>';
+	echo '<a href="viewPokemon.php">Poke-View</a>';
+	
+	echo '<a href="createTeam.php">Team-Create</a>';
+	echo '<a href="deleteTeam.php">Team-Delete</a>';
+	echo '<a href="updateTeam.php">Team-Update</a>';
+	echo '<a href="viewTeam.php">Team-View</a>';
 
-	echo '<button class="dropbtn">Team';
-	echo '<i class="fa fa-caret-down"></i>';
-	echo '</button>';
-	echo '<div class="dropdown-content">';
-	echo '<a href="createTeam.php">Create</a>';
-	echo '<a href="deleteTeam.php">Delete</a>';
-	echo '<a href="updateTeam.php">Update</a>';
-	echo '<a href="viewTeam.php">View</a>';
-	echo '</div>';
-	echo '</div>';
+	echo '<a href="createFav.php">Fav-Create</a>';
+	echo '<a href="deleteFav.php">Fav-Delete</a>';
+	echo '<a href="updateFav.php">Fav-Update</a>';
+	echo '<a href="viewFav.php">Fav-View</a>';
 
-	echo '<button class="dropbtn">Favorites';
-	echo '<i class="fa fa-caret-down"></i>';
-	echo '</button>';
-	echo '<div class="dropdown-content">';
-	echo '<a href="createFav.php">Create</a>';
-	echo '<a href="deleteFav.php">Delete</a>';
-	echo '<a href="updateFav.php">Update</a>';
-	echo '<a href="viewFav.php">View</a>';
-	echo '</div>';
-	echo '</div>';
-
-
-
-	echo '</div>';
+	echo '</nav>';
 
 ?>
 
