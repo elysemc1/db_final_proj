@@ -17,8 +17,8 @@
 	echo '<a href="index.php">Home</a>';
 
 	echo '<p>';
-	echo '<a href="searchPokemon.php">Poke-Search</a> \n';
-	echo '<a href="comparePokemon.php">Poke-Compare</a> \n';
+	echo '<a href="searchPokemon.php">Poke-Search</a> <br>';
+	echo '<a href="comparePokemon.php">Poke-Compare</a> <br>';
 	echo '<a href="viewPokemon.php">Poke-View</a>';
 	echo '</p>';
 
