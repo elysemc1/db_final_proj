@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<?php
+<!-- <?php
 
 include 'pokeHeader.php';
 
-?>
+?> -->
 <body>
     <h1>Pokédex Team Builder</h1>
 
