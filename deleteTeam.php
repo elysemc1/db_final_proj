@@ -1,8 +1,8 @@
 <?php
 include 'pokeheader.php';
 
-echo '<html>'
-echo '<body>'
+echo '<html>';
+echo '<body>';
 
 $team_id = $_GET['team_id'];
 
@@ -20,7 +20,7 @@ if ($link->query($sql) === TRUE) {
 
 $link->close();
 
-echo '</body>'
-echo '</html>'
+echo '</body>';
+echo '</html>';
 
 ?>

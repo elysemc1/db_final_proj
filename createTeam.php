@@ -1,8 +1,8 @@
 <?php
 include 'pokeheader.php';
 
-echo '<html>'
-echo '<body>'
+echo '<html>';
+echo '<body>';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_POST['user_id'];
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $link->close();
 }
 
-echo '</body>'
-echo '</html>'
+echo '</body>';
+echo '</html>';
 
 ?>
