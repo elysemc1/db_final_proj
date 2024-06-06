@@ -1,6 +1,9 @@
 <?php
 include 'pokeheader.php';
 
+echo '<html>'
+echo '<body>'
+
 $sql = "SELECT Teams.team_id, Teams.team_name, Users.user_name, GROUP_CONCAT(Pokemon_Characters.pokemon_name) AS pokemon_names 
         FROM Teams 
         JOIN Team_Members ON Teams.team_id = Team_Members.team_id 
@@ -21,4 +24,10 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 $link->close();
+
+echo '</body>'
+echo '</html>'
+
 ?>
+
+
