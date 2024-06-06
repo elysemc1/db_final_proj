@@ -1,14 +1,14 @@
 <?php
 	session_start();	
 
-    echo '<!DOCTYPE html>'
+    echo '<!DOCTYPE html>';
 
 
     include 'pokeHeader.php';
 
-    echo '<body>'
-    echo '<h1>Pokédex Team Builder</h1>'
-    echo '<h2>Add a Team</h2>'
+    echo '<body>';
+    echo '<h1>Pokédex Team Builder</h1>';
+    echo '<h2>Add a Team</h2>';
     echo '<form action="add_team.php" method="post">';
     echo 'User ID: <input type="number" name="user_id" required><br>';
     echo 'Team Name: <input type="text" name="team_name" required><br>';
@@ -27,13 +27,13 @@
     }
     $conn->close();
     echo '<input type="submit" value="Add Team">';
-    echo '</form>'
+    echo '</form>';
 
     echo '<h2>Search Pokémon</h2>';
     echo '<a href=\'search.php\'>Search Pokémon</a>';
 
     echo '<h2>View Teams</h2>';
     echo '<a href=\'view_teams.php\'>View Teams</a>';
-    echo '</body>'
-    echo '</html>'
+    echo '</body>';
+    echo '</html>';
 ?>

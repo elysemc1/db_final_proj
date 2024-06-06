@@ -1,8 +1,8 @@
 <?php
 
 	// include the stuff to connect to the database
-	echo '<!DOCTYPE html>'
-	echo '<html lang="en">'
+	echo '<!DOCTYPE html>';
+	echo '<html lang="en">';
 	echo '<head>';
 	echo '<meta charset="UTF-8">';
 	echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
