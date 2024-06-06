@@ -7,13 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $team_name = $_POST['team_name'];
     $pokemon_ids = $_POST['pokemon_ids'];
 
-
-    // Update team name
-    $sql = "UPDATE Teams SET team_name = ? WHERE team_id = ?";
+    // Update team name and user_id
+    $sql = "UPDATE Teams SET team_name = ?, user_id = ? WHERE team_id = ?";
     $stmt = $link->prepare($sql);
-    $stmt->bind_param('si', $team_name, $team_id);
+    $stmt->bind_param('sii', $team_name, $user_id, $team_id);
     if (!$stmt->execute()) {
-        die("Error updating team name: " . $stmt->error);
+        die("Error updating team name and user_id: " . $stmt->error);
     }
 
     // Fetch current team members
@@ -64,8 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     $team_id = $_GET['team_id'];
 
-    // Fetch team details
-    $sql = "SELECT * FROM Teams WHERE team_id = ?";
+    // Fetch team details along with user_id
+    $sql = "SELECT Teams.*, Users.user_id FROM Teams JOIN Users ON Teams.user_id = Users.user_id WHERE team_id = ?";
     $stmt = $link->prepare($sql);
     $stmt->bind_param('i', $team_id);
     if (!$stmt->execute()) {
@@ -99,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <h1>Edit Team</h1>
         <form action="updateTeam.php" method="post">
-            
             <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>">
             User ID: <input type="text" name="user_id" value="<?php echo $team['user_id']; ?>" required><br>
             Team Name: <input type="text" name="team_name" value="<?php echo $team['team_name']; ?>" required><br>
