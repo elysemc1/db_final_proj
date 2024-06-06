@@ -2,12 +2,11 @@
 include 'pokeHeader.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $user_id = $_POST['user_id'];
     $team_id = $_POST['team_id'];
     $team_name = $_POST['team_name'];
     $pokemon_ids = $_POST['pokemon_ids'];
-
-    // Assuming user_id is stored in session
-    $user_id = $_SESSION['user_id'];
+    
 
     // Update team name
     $sql = "UPDATE Teams SET team_name = ? WHERE team_id = ?";
