@@ -1,35 +1,47 @@
 <?php
-session_start();	
-
 include 'pokeheader.php';
 
 echo '<html>';
 echo '<body>';
 
-$sql = "SELECT Teams.team_id, Teams.team_name, Users.user_name, GROUP_CONCAT(Pokemon_Characters.pokemon_name) AS pokemon_names 
-        FROM Teams 
-        JOIN Team_Members ON Teams.team_id = Team_Members.team_id 
-        JOIN Pokemon_Characters ON Team_Members.pokemon_id = Pokemon_Characters.pokemon_id 
-        JOIN Users ON Teams.user_id = Users.user_id
-        GROUP BY Teams.team_id, Teams.team_name, Users.user_name";
-$result = $link->query($sql);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Assuming $link is your database connection object
 
-if ($result->num_rows > 0) {
-    echo "<table><tr><th>Team Name</th><th>User Name</th><th>Pokémon</th><th>Actions</th></tr>";
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["team_name"] . "</td><td>" . $row["user_name"] . "</td><td>" . $row["pokemon_names"] . "</td><td>
-        <a href='edit_team.php?team_id=" . $row["team_id"] . "'>Edit</a> | 
-        <a href='delete_team.php?team_id=" . $row["team_id"] . "'>Delete</a></td></tr>";
+    $user_id = $_POST['user_id'];
+    $team_name = $_POST['team_name'];
+    $pokemon_ids = $_POST['pokemon_ids']; // Array of Pokémon IDs
+
+    // Escape inputs to prevent SQL injection
+    $user_id = $link->real_escape_string($user_id);
+    $team_name = $link->real_escape_string($team_name);
+
+    $sql = "INSERT INTO Teams (user_id, team_name) VALUES ('$user_id', '$team_name')";
+
+    if ($link->query($sql) === TRUE) {
+        $team_id = $link->insert_id;
+        $slot_id = 1;
+        foreach ($pokemon_ids as $pokemon_id) {
+            $pokemon_id = $link->real_escape_string($pokemon_id);
+            $pokemon_level = 1; // Default level, you might want to change this
+
+            $sql = "INSERT INTO Team_Members (team_id, user_id, slot_id, pokemon_id, pokemon_level) 
+                    VALUES ('$team_id', '$user_id', '$slot_id', '$pokemon_id', '$pokemon_level')";
+            
+            if ($link->query($sql) === FALSE) {
+                echo "Error inserting Pokemon ID $pokemon_id: " . $link->error;
+                break; // Exit loop if there's an error
+            }
+
+            $slot_id++;
+        }
+        echo "New team created successfully";
+    } else {
+        echo "Error creating team: " . $link->error;
     }
-    echo "</table>";
-} else {
-    echo "0 results";
+
+    $link->close();
 }
-$link->close();
 
 echo '</body>';
 echo '</html>';
-
 ?>
-
-

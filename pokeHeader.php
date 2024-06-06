@@ -16,9 +16,12 @@
 
 	echo '<a href="index.php">Home</a>';
 
-	echo '<a href="searchPokemon.php">Poke-Search</a>';
-	echo '<a href="comparePokemon.php">Poke-Compare</a>';
+	echo '<p>';
+	echo '<a href="searchPokemon.php">Poke-Search</a> \n';
+	echo '<a href="comparePokemon.php">Poke-Compare</a> \n';
 	echo '<a href="viewPokemon.php">Poke-View</a>';
+	echo '</p>';
+
 	
 	echo '<a href="createTeam.php">Team-Create</a>';
 	echo '<a href="deleteTeam.php">Team-Delete</a>';
