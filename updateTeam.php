@@ -100,8 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <h1>Edit Team</h1>
         <form action="updateTeam.php" method="post">
-            <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
+            
             <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>">
+            User ID: <input type="text" name="user_id" value="<?php echo $user['user_id']; ?>" required><br>
             Team Name: <input type="text" name="team_name" value="<?php echo $team['team_name']; ?>" required><br>
             Select Pokémon: <br>
             <?php
