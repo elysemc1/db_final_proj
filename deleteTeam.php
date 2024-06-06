@@ -1,30 +1,26 @@
 <?php
 include 'pokeheader.php';
 
-if (isset($_GET['team_id'])) {
-    $team_id = $_GET['team_id'];
+echo '<html>';
+echo '<body>';
 
-    // Delete team members first
-    $sql = "DELETE FROM Team_Members WHERE team_id = ?";
-    $stmt = $link->prepare($sql);
-    $stmt->bind_param('i', $team_id);
-    if ($stmt->execute()) {
-        // Delete the team
-        $sql = "DELETE FROM Teams WHERE team_id = ?";
-        $stmt = $link->prepare($sql);
-        $stmt->bind_param('i', $team_id);
-        if ($stmt->execute()) {
-            echo "Team deleted successfully";
-        } else {
-            echo "Error deleting team: " . $stmt->error;
-        }
-    } else {
-        echo "Error deleting team members: " . $stmt->error;
-    }
-    $stmt->close();
+$team_id = $_GET['team_id'];
+
+// Delete team members first
+$sql = "DELETE FROM Team_Members WHERE team_id = '$team_id'";
+$link->query($sql);
+
+// Delete the team
+$sql = "DELETE FROM Teams WHERE team_id = '$team_id'";
+if ($link->query($sql) === TRUE) {
+    echo "Team deleted successfully";
 } else {
-    echo "No team ID provided";
+    echo "Error: " . $link->error;
 }
 
 $link->close();
+
+echo '</body>';
+echo '</html>';
+
 ?>
