@@ -1,8 +1,6 @@
 <?php
 	session_start();	
 
-    echo '<!DOCTYPE html>';
-
     include 'pokeHeader.php';
 
     echo '<body>';
