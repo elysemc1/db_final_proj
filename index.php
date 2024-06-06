@@ -32,7 +32,7 @@
     echo '<a href=\'searchPokemon.php\'>Search Pokémon</a>';
 
     echo '<h2>View Teams</h2>';
-    echo '<a href=\'viewTeams.php\'>View Teams</a>';
+    echo '<a href=\'viewTeam.php\'>View Teams</a>';
     echo '</body>';
     echo '</html>';
 ?>
