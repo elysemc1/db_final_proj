@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $team_id = $_POST['team_id'];
     $team_name = $_POST['team_name'];
     $pokemon_ids = $_POST['pokemon_ids'];
-    
+
 
     // Update team name
     $sql = "UPDATE Teams SET team_name = ? WHERE team_id = ?";
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form action="updateTeam.php" method="post">
             
             <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>">
-            User ID: <input type="text" name="user_id" value="<?php echo $user['user_id']; ?>" required><br>
+            User ID: <input type="text" name="user_id" value="<?php echo $team['user_id']; ?>" required><br>
             Team Name: <input type="text" name="team_name" value="<?php echo $team['team_name']; ?>" required><br>
             Select Pokémon: <br>
             <?php
