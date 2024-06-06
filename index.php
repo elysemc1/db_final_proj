@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-//include 'pokeHeader.php';
+include 'pokeHeader.php';
 
 ?>
 <body>
@@ -13,7 +13,7 @@
         Team Name: <input type="text" name="team_name" required><br>
         Select Pokémon: <br>
         <?php
-        include 'db.php';
+        include 'pokeConfig.php';
         $sql = "SELECT pokemon_id, pokemon_name FROM Pokemon_Characters";
         $result = $conn->query($sql);
 
