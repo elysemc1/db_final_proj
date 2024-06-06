@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Search Pokémon</h1>
-    <form action="search.php" method="get">
+    <form action="searchPokemon.php" method="get">
         Search by: 
         <select name="search_by">
             <option value="name">Name</option>
