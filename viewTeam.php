@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-include 'pokeheader.php';
+include 'pokeHeader.php';
+include 'pokeConfig.php';
 
 // Enable error reporting
 ini_set('display_errors', 1);
