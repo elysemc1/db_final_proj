@@ -1,69 +1,87 @@
-/* Navbar container */
-.navbar {
-	overflow: hidden;
-	background-color: #333;
-	font-family: Arial;
-  }
-  
-  /* Links inside the navbar */
-  .navbar a {
-	float: left;
-	font-size: 16px;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-  }
-  
-  /* The dropdown container */
-  .dropdown {
-	float: left;
-	overflow: hidden;
-  }
-  
-  /* Dropdown button */
-  .dropdown .dropbtn {
-	font-size: 16px;
-	border: none;
-	outline: none;
-	color: white;
-	padding: 14px 16px;
-	background-color: inherit;
-	font-family: inherit; /* Important for vertical align on mobile phones */
-	margin: 0; /* Important for vertical align on mobile phones */
-  }
-  
-  /* Add a red background color to navbar links on hover */
-  .navbar a:hover, .dropdown:hover .dropbtn {
-	background-color: red;
-  }
-  
-  /* Dropdown content (hidden by default) */
-  .dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-	float: none;
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-	text-align: left;
-  }
-  
-  /* Add a grey background color to dropdown links on hover */
-  .dropdown-content a:hover {
-	background-color: #ddd;
-  }
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {
-	display: block;
-  }
+a {
+    color: rgb(0, 120, 0);
+    margin: 1%;
+}
+h1 {
+    color: rgb(0, 50, 20);
+    margin: 1%;
+}
+h2 {
+    color: rgb(0, 60, 60);
+    margin: 1%;
+    border: 5px solid rgb(120, 160, 120);
+    border-radius: 30px;
+    padding: 15px;
+}
+h3 {
+    color: rgb(0, 70, 100);
+    margin: 1%;
+}
+p {
+    color: rgb(0, 80,140);
+    margin: 1%;
+}
+body {
+    background-color: rgb(255, 227, 184);
+    margin: 1%;
+    font-family: Cambria;
+    min-width: 850px;
+}
+header {
+    color: rgba(0, 0, 0, 50);
+    background-color: rgb(255, 255, 255);
+    margin: 2%;
+    border: rgb(255, 235, 205);
+    border-radius: 30px;
+    text-align: center;
+    padding: 15px;
+}
+main {
+    color: rgba(0, 0, 0, 50);
+    background-color: rgb(255, 255, 255);
+    margin: 2%;
+    border: rgb(255, 235, 205);
+    border-radius: 30px;
+    padding: 15px;
+}
+p {
+    color: rgba(0, 0, 0, 50);
+    background-color: rgb(255, 255, 255);
+    margin: 2%;
+    border: rgb(255, 235, 205);
+    border-radius: 30px;
+    padding: 15px;
+}
+table {
+    margin: 2%;
+    padding: 10px;
+}
+th, td {
+    margin: 10px;
+    padding: 10px;
+    border: 1px double rgb(255, 192, 203);
+    border-radius: 3px;
+}
+input {
+    margin: 0px 10px;
+}
+nav {
+    background-color: rgb(120, 160, 120);
+    border-radius: 30px;
+    margin: 10px;
+    text-align: center;
+    padding: 15px;
+}
+nav > a {
+    text-decoration: none;
+    background-color: rgb(255, 255, 240);
+    border-radius: 20px;
+    margin: 15px;
+    padding: 10px;
+    transition: all 0.2s;
+}
+nav > a:hover {
+    border-radius: 30px;
+    padding: 20px;
+    margin: 5px;
+}
