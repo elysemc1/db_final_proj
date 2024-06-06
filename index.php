@@ -3,7 +3,6 @@
 
     echo '<!DOCTYPE html>';
 
-
     include 'pokeHeader.php';
 
     echo '<body>';

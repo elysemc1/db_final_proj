@@ -10,7 +10,6 @@
 	echo '<title>Pokemon Database</title>';
 	echo '<link rel="stylesheet" href="index.css">';
 	echo '</head>';
-	echo '<body>';
 	echo '<header>';
 	echo '<h1>Pokemon Database</h1>';
 	echo '</header>';

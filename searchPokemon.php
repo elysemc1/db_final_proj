@@ -39,7 +39,7 @@
                 break;
         }
 
-        $result = $conn->query($sql);
+        $result = $link->query($sql);
 
         if ($result->num_rows > 0) {
             echo "<h2>Search Results</h2>";
@@ -52,7 +52,7 @@
             echo "No results found";
         }
 
-        $conn->close();
+        $link->close();
     }
     ?>
 </body>

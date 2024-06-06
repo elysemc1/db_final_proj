@@ -7,7 +7,7 @@ $sql = "SELECT Teams.team_id, Teams.team_name, Users.user_name, GROUP_CONCAT(Pok
         JOIN Pokemon_Characters ON Team_Members.pokemon_id = Pokemon_Characters.pokemon_id 
         JOIN Users ON Teams.user_id = Users.user_id
         GROUP BY Teams.team_id, Teams.team_name, Users.user_name";
-$result = $conn->query($sql);
+$result = $link->query($sql);
 
 if ($result->num_rows > 0) {
     echo "<table><tr><th>Team Name</th><th>User Name</th><th>Pokémon</th><th>Actions</th></tr>";
@@ -20,5 +20,5 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
-$conn->close();
+$link->close();
 ?>
