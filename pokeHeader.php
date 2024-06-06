@@ -17,11 +17,11 @@
 	echo '<h1>Pokemon Database</h1>';
 	echo '</header>';
 	echo '<nav>';
-	echo '<a href=".php"></a> |';
-	echo '<a href=".php"></a> |';
-	echo '<a href=".php"></a> |';
-	echo '<a href=".php"></a> |';
-	echo '<a href=".php"></a>';
+	echo '<a href="index.php">nice</a> |';
+	echo '<a href="index.php">nice</a> |';
+	echo '<a href="index.php">nice</a> |';
+	echo '<a href="index.php">nice</a> |';
+	echo '<a href="index.php">nice</a>';
 	echo '</nav>';
 
 ?>

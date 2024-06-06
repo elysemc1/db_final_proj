@@ -1,5 +1,5 @@
 <?php
-include 'pokeConfig.php';
+include 'pokeheader.php';
 
 $sql = "SELECT Teams.team_id, Teams.team_name, Users.user_name, GROUP_CONCAT(Pokemon_Characters.pokemon_name) AS pokemon_names 
         FROM Teams 
