@@ -6,13 +6,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $team_name = $_POST['team_name'];
     $pokemon_ids = $_POST['pokemon_ids'];
 
+    // Assuming user_id is stored in session
+    $user_id = $_SESSION['user_id'];
+
     // Update team name
-    $sql = "UPDATE Teams SET team_name = '$team_name' WHERE team_id = '$team_id'";
-    $link->query($sql);
+    $sql = "UPDATE Teams SET team_name = ? WHERE team_id = ?";
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param('si', $team_name, $team_id);
+    if (!$stmt->execute()) {
+        die("Error updating team name: " . $stmt->error);
+    }
 
     // Fetch current team members
-    $sql = "SELECT slot_id, pokemon_id FROM Team_Members WHERE team_id = '$team_id'";
-    $result = $link->query($sql);
+    $sql = "SELECT slot_id, pokemon_id FROM Team_Members WHERE team_id = ?";
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param('i', $team_id);
+    if (!$stmt->execute()) {
+        die("Error fetching current team members: " . $stmt->error);
+    }
+    $result = $stmt->get_result();
     $current_team_members = [];
     while ($row = $result->fetch_assoc()) {
         $current_team_members[$row['slot_id']] = $row['pokemon_id'];
@@ -21,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Calculate the maximum slot ID
     $max_slot_id = !empty($current_team_members) ? max(array_keys($current_team_members)) : 0;
 
-    // Prepare data for insertion and deletion
+    // Determine which Pokémon IDs to add and delete
     $pokemon_ids_to_add = array_diff($pokemon_ids, $current_team_members);
     $pokemon_ids_to_delete = array_diff($current_team_members, $pokemon_ids);
 
@@ -29,15 +41,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $slot_id = $max_slot_id + 1;
     foreach ($pokemon_ids_to_add as $pokemon_id) {
         $pokemon_level = 1; // Default level, you might want to change this
-        $sql = "INSERT INTO Team_Members (team_id, user_id, slot_id, pokemon_id, pokemon_level) VALUES ('$team_id', '$user_id', '$slot_id', '$pokemon_id', '$pokemon_level')";
-        $link->query($sql);
+        $sql = "INSERT INTO Team_Members (team_id, user_id, slot_id, pokemon_id, pokemon_level) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $link->prepare($sql);
+        $stmt->bind_param('iiiii', $team_id, $user_id, $slot_id, $pokemon_id, $pokemon_level);
+        if (!$stmt->execute()) {
+            die("Error adding team member: " . $stmt->error);
+        }
         $slot_id++;
     }
 
     // Delete removed team members
     foreach ($pokemon_ids_to_delete as $slot_id => $pokemon_id) {
-        $sql = "DELETE FROM Team_Members WHERE team_id = '$team_id' AND slot_id = '$slot_id'";
-        $link->query($sql);
+        $sql = "DELETE FROM Team_Members WHERE team_id = ? AND slot_id = ?";
+        $stmt = $link->prepare($sql);
+        $stmt->bind_param('ii', $team_id, $slot_id);
+        if (!$stmt->execute()) {
+            die("Error deleting team member: " . $stmt->error);
+        }
     }
 
     echo "Team updated successfully";
@@ -46,16 +66,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $team_id = $_GET['team_id'];
 
     // Fetch team details
-    $sql = "SELECT * FROM Teams WHERE team_id = '$team_id'";
-    $result = $link->query($sql);
+    $sql = "SELECT * FROM Teams WHERE team_id = ?";
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param('i', $team_id);
+    if (!$stmt->execute()) {
+        die("Error fetching team details: " . $stmt->error);
+    }
+    $result = $stmt->get_result();
     $team = $result->fetch_assoc();
 
     // Fetch team members
-    $sql = "SELECT slot_id, pokemon_id FROM Team_Members WHERE team_id = '$team_id'";
-    $result = $link->query($sql);
+    $sql = "SELECT pokemon_id FROM Team_Members WHERE team_id = ?";
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param('i', $team_id);
+    if (!$stmt->execute()) {
+        die("Error fetching team members: " . $stmt->error);
+    }
+    $result = $stmt->get_result();
     $team_members = [];
     while ($row = $result->fetch_assoc()) {
-        $team_members[$row['slot_id']] = $row['pokemon_id'];
+        $team_members[] = $row['pokemon_id'];
     }
 
     // Fetch all Pokémon
