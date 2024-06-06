@@ -1,4 +1,6 @@
 <?php
+session_start();	
+
 include 'pokeheader.php';
 
 echo '<html>';

@@ -5,10 +5,6 @@
 	echo '<html lang="en">';
 	echo '<head>';
 	echo '<meta charset="UTF-8">';
-
-	//echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
-	//echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-	//echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
 	
 	echo '<title>Pokemon Database</title>';
 	echo '<link rel="stylesheet" type="text/css" href="index.css">';
@@ -20,9 +16,9 @@
 
 	echo '<a href="index.php">Home</a>';
 
-	echo '<p><a href="searchPokemon.php">Poke-Search</a>';
+	echo '<a href="searchPokemon.php">Poke-Search</a>';
 	echo '<a href="comparePokemon.php">Poke-Compare</a>';
-	echo '<a href="viewPokemon.php">Poke-View</a></p>';
+	echo '<a href="viewPokemon.php">Poke-View</a>';
 	
 	echo '<a href="createTeam.php">Team-Create</a>';
 	echo '<a href="deleteTeam.php">Team-Delete</a>';
