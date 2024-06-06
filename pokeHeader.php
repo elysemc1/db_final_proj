@@ -1,6 +1,9 @@
 <?php
 
+
 	// include the stuff to connect to the database
+	include 'pokeConfig.php';
+
 	echo '<!DOCTYPE html>';
 	echo '<html lang="en">';
 	echo '<head>';
