@@ -1,7 +1,6 @@
 <?php
-include 'pokeheader.php';
+include 'pokeHeader.php';
 
-echo '<html>';
 echo '<body>';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
