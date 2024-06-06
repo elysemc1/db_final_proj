@@ -16,7 +16,7 @@
         
     include 'pokeConfig.php';
     $sql = "SELECT pokemon_id, pokemon_name FROM Pokemon_Characters";
-    $result = $conn->query($sql);
+    $result = $link->query($sql);
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -25,7 +25,7 @@
     } else {
         echo "No Pokémon available";
     }
-    $conn->close();
+    $link->close();
     echo '<input type="submit" value="Add Team">';
     echo '</form>';
 
