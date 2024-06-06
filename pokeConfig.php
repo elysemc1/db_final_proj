@@ -55,6 +55,8 @@
 	STRETCH GOALS
 	- The user could test their team in an attack against other teams
 	- The user can select up to 5 Pokemon in the comparison screen
+	- Sesions for users
+	- Images for each pokemon
 
 	*/
 
