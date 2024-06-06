@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </head>
     <body>
         <h1>Edit Team</h1>
-        <form action="edit_team.php" method="post">
+        <form action="viewTeam.php" method="post">
             <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>">
             Team Name: <input type="text" name="team_name" value="<?php echo $team['team_name']; ?>" required><br>
             Select Pokémon: <br>
