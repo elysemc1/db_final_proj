@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'pokeHeader.php';
 
 echo '<body>';
@@ -26,11 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $link->close();
 } else {
+    $user_id = $_SESSION["user_id"];
     echo '<body>';
     echo '<h1>Pokédex Team Builder</h1>';
     echo '<h2>Add a Team</h2>';
     echo '<form action="createTeam.php" method="post">';
-    echo 'User ID: <input type="number" name="user_id" required><br>';
+    echo "User ID: <input type='number' name='user_id' value='$user_id' readonly required><br>";
     echo 'Team Name: <input type="text" name="team_name" required><br>';
     echo 'Select Pokémon: <br>';
         
