@@ -10,6 +10,11 @@ echo '<body>';
 
 echo "Starting SQL execution...<br>";
 
+//if Logged in,
+    //Add a label at top of table "${user_name}'s Teams"
+    //Add matching table without User Name column
+    //need a different SQL statement for list of all?
+
 $sql = "SELECT Teams.team_id, Teams.team_name, Users.user_name, GROUP_CONCAT(Pokemon_Characters.pokemon_name) AS pokemon_names 
         FROM Teams 
         JOIN Team_Members ON Teams.team_id = Team_Members.team_id 
@@ -25,6 +30,7 @@ if (!$result) {
 
 echo "SQL executed successfully...<br>";
 
+//add label "All Teams" and remove Actions column from table
 if ($result->num_rows > 0) {
     echo "<table><tr><th>Team Name</th><th>User Name</th><th>Pokémon</th><th>Actions</th></tr>";
     while ($row = $result->fetch_assoc()) {

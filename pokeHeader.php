@@ -17,12 +17,15 @@
 	echo '</header>';
 	echo '<nav>';
 
+	//add a login link option
+
 	echo '<a href="index.php">Home</a>';
 
 	echo '<a href="searchPokemon.php">Poke-Search</a>';
 	echo '<a href="comparePokemon.php">Poke-Compare</a>';
 	echo '<a href="viewPokemon.php">Poke-View</a>';
 	
+	//add an IF statement that checks session info before showing first 3
 	echo '<a href="createTeam.php">Team-Create</a>';
 	echo '<a href="deleteTeam.php">Team-Delete</a>';
 	echo '<a href="updateTeam.php">Team-Update</a>';
