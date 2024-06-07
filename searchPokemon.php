@@ -18,7 +18,7 @@
 
     <?php
     if (isset($_GET['search_by']) && isset($_GET['query'])) {
-        include 'pokeConfig.php';
+        include 'pokeHeader.php';
 
         $search_by = $_GET['search_by'];
         $query = $_GET['query'];

@@ -2,7 +2,6 @@
 session_start();
 
 include 'pokeHeader.php';
-//include 'pokeConfig.php';
 
 
 echo '<html>';

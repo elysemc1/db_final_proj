@@ -19,19 +19,16 @@
 
 	echo '<a href="index.php">Home</a>';
 
-	echo '<a href="searchPokemon.php">Poke-Search</a>';
-	echo '<a href="comparePokemon.php">Poke-Compare</a>';
-	echo '<a href="viewPokemon.php">Poke-View</a>';
+	echo 'Pokemon -&gt; ';
+	echo '<a href="searchPokemon.php">Search</a>';
+	echo '<a href="comparePokemon.php">Compare</a>';
+	echo '<a href="viewPokemon.php">View</a>';
 	
-	echo '<a href="createTeam.php">Team-Create</a>';
-	echo '<a href="deleteTeam.php">Team-Delete</a>';
-	echo '<a href="updateTeam.php">Team-Update</a>';
-	echo '<a href="viewTeam.php">Team-View</a>';
-
-	echo '<a href="createFav.php">Fav-Create</a>';
-	echo '<a href="deleteFav.php">Fav-Delete</a>';
-	echo '<a href="updateFav.php">Fav-Update</a>';
-	echo '<a href="viewFav.php">Fav-View</a>';
+	echo 'Team -&gt; ';
+	echo '<a href="createTeam.php">Create</a>';
+	echo '<a href="deleteTeam.php">Delete</a>';
+	echo '<a href="updateTeam.php">Update</a>';
+	echo '<a href="viewTeam.php">View</a>';
 
 	echo '</nav>';
 
