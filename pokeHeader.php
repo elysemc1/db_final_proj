@@ -1,5 +1,5 @@
 <?php
-
+	session_start();
 
 	// include the stuff to connect to the database
 	include 'pokeConfig.php';
@@ -17,7 +17,11 @@
 	echo '</header>';
 	echo '<nav>';
 
-	//add a login link option
+	if (!isset($_SESSION["user_id"])) {
+		echo '<a href="login.php">Login</a>';
+	} else {
+		echo '<a href="login.php">Logout</a>';
+	}
 
 	echo '<a href="index.php">Home</a>';
 
@@ -25,10 +29,12 @@
 	echo '<a href="comparePokemon.php">Poke-Compare</a>';
 	echo '<a href="viewPokemon.php">Poke-View</a>';
 	
-	//add an IF statement that checks session info before showing first 3
-	echo '<a href="createTeam.php">Team-Create</a>';
-	echo '<a href="deleteTeam.php">Team-Delete</a>';
-	echo '<a href="updateTeam.php">Team-Update</a>';
+	//if not logged in, view only (passive)
+	if (isset($_SESSION["user_id"])) {
+		echo '<a href="createTeam.php">Team-Create</a>';
+		echo '<a href="deleteTeam.php">Team-Delete</a>';
+		echo '<a href="updateTeam.php">Team-Update</a>';
+	}
 	echo '<a href="viewTeam.php">Team-View</a>';
 
 	echo '<a href="createFav.php">Fav-Create</a>';
