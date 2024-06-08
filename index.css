@@ -62,11 +62,11 @@ table {
 th, td {
     margin: 10px;
     padding: 10px;
-    border: 3px double rgb(120, 160, 120);
+    border: 3px solid rgb(120, 160, 120);
     border-radius: 15px;
 }
 th {
-    border: 3px double rgb(0, 120, 0);
+    border: 3px solid rgb(0, 120, 0);
 }
 input {
     margin: 0px 10px;

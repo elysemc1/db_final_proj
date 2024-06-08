@@ -2,6 +2,7 @@
 <!-- Group 5 -->
 
 <?php
+
 include 'pokeHeader.php';
 
 echo '<form action="searchPokemon.php" method="get">';
@@ -42,7 +43,7 @@ echo '</form>';
             echo "<h2>Search Results</h2>";
             echo "<table><tr><th>Number</th><th>Name</th><th>Generation</th><th>Height</th><th>Weight</th></tr>";
             while ($row = $result->fetch_assoc()) {
-                echo "<tr><td>""<a href='view_pokemon.php?pokemon_id=" . $row["pokemon_id"] . "'>" . $row["pokemon_id"] . "</a>"</td><td>" . $row["pokemon_name"] . "</td><td>" . $row["generation"] . "</td><td>" . $row["height"] . "</td><td>" . $row["weight"] . "</td></tr>";
+                echo "<tr><td>" . $row["pokemon_id"] . "</td><td><a href='viewPokemon.php?pokemon_id=" . $row["pokemon_id"] . "'>" . htmlspecialchars($row["pokemon_name"]) . "</a></td><td>" . $row["generation"] . "</td><td>" . $row["height"] . "</td><td>" . $row["weight"] . "</td></tr>";
             }
             echo "</table>";
         } else {

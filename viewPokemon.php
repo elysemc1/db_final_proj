@@ -20,6 +20,7 @@ if (isset($_GET['pokemon_id'])) {
         echo "<p>Weight: " . htmlspecialchars($pokemon['weight']) . " kilograms</p>";
         echo "<p>Gender Ratio: " . htmlspecialchars($pokemon['gender_ratio']) . "</p>";
         echo "<p>Base Experience: " . htmlspecialchars($pokemon['base_exp']) . "</p>";
+		echo "<img src=https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" . $pokemon_id . ".png alt='Image of " . $pokemon['pokemon_name'] . "'>";
 
         // Fetch evolution options
         $sql = "SELECT p.pokemon_name AS evolved_name 
