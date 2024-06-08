@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿// Made by Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen
+// Group 5
+
+<!DOCTYPE html>
 <!-- CS 340 Example -->
 <html>
 	<head>

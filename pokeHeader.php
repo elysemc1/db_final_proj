@@ -1,3 +1,6 @@
+// Made by Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen
+// Group 5
+
 <?php
 
 
@@ -14,6 +17,7 @@
 	echo '</head>';
 	echo '<header>';
 	echo '<h1>Pokemon Database</h1>';
+	echo 'Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen - Group 5';
 	echo '</header>';
 	echo '<nav>';
 

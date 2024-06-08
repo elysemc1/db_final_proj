@@ -1,3 +1,6 @@
+// Made by Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen
+// Group 5
+
 <!DOCTYPE html>
 <html>
 	<head>

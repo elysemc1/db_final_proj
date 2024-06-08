@@ -1,3 +1,8 @@
+-- Made by Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen
+-- Group 5
+
+
+
 -- ////////////////////////// 1. CREATE TABLES //////////////////////////
 -- --------------------- a) Pokemon Attributes -----------------------
 -- note that the order of these create statements matters due to dependencies
