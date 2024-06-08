@@ -2,35 +2,30 @@
 <!-- Group 5 -->
 
 <?php
-session_start();	
 
 include 'pokeHeader.php';
 
-echo '</body>';
-echo '</html>';
-echo 'Welcome to the Pokemon Database!';
-
-$sql = "SELECT Users.latest_team_id, Users.user_name, Users.user_id
+echo "<h2>Welcome to the Pokemon Database!</h2>";
+if (isset($_SESSION["user_id"])) {
+    $userID = $_SESSION["user_id"];
+    $sql = "SELECT Users.latest_team_id, Users.user_name, Users.user_id
     FROM Users 
-    WHERE Users.user_id = 1";
-    
-$result = $link->query($sql);
+    WHERE Users.user_id = $userID";
 
-if (!$result) {
-    die("Query failed: " . $link->error);
-}
+    $result = $link->query($sql);
 
-if ($result->num_rows > 0) {
-    echo "<table><tr><th>User ID</th><th>User Name</th><th>Latest Team ID</th></tr>";
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["user_id"] . "</td><td>" . $row["user_name"] . "</td><td>" . $row["latest_team_id"] . "</tr>";
+    if (!$result) {
+        die("Query failed: " . $link->error);
     }
-    echo "</table>";
-} else {
-    echo "0 results";
-}
 
-$link->close();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        echo "<h3>Welcome " . $row['user_name'] . "!</h3>";
+        echo "<p>Your User ID is $userID. The last team you created or modified had the Team ID " . $row['latest_team_id'] . ".</p>";
+    }
+
+    $link->close();
+}
 
 echo '</body>';
 echo '</html>';

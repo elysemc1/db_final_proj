@@ -21,6 +21,11 @@
 	echo '</header>';
 	echo '<nav>';
 
+	if (!isset($_SESSION["user_id"])) {
+		echo '<a href="login.php">Login</a>';
+	} else {
+		echo '<a href="login.php">Logout</a>';
+	}
 	echo '<a href="index.php">Home</a>';
 	echo '<a href="searchPokemon.php">Search Pokemon</a>';	
 	echo '<a href="createTeam.php">Create Team</a>';
@@ -28,6 +33,8 @@
 	echo '<a href="viewTeam.php">View Team</a>';
 
 	echo '</nav>';
+
+	
 
 ?>
 

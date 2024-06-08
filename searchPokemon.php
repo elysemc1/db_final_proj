@@ -2,7 +2,6 @@
 <!-- Group 5 -->
 
 <?php
-
 include 'pokeHeader.php';
 
 echo '<form action="searchPokemon.php" method="get">';

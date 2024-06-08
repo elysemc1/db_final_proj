@@ -10,8 +10,8 @@ echo '<body>';
 $team_id = $_GET['team_id'];
 
 // Delete team members first
-$sql = "DELETE FROM Team_Members WHERE team_id = '$team_id'";
-$link->query($sql);
+// $sql = "DELETE FROM Team_Members WHERE team_id = '$team_id'";
+// $link->query($sql);
 
 // Delete the team
 $sql = "DELETE FROM Teams WHERE team_id = '$team_id'";

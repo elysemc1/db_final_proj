@@ -19,6 +19,8 @@
 		exit("ERROR: Could not connect. " . mysqli_connect_error());
 	}	
 
+	session_start();
+
     /* TODO:
 
 	WHO DOES WHAT
