@@ -12,7 +12,7 @@ h1 {
 h2 {
     color: rgb(0, 60, 60);
     margin: 1%;
-    border: 5px solid rgb(120, 160, 120);
+    border: 5px solid rgb(0, 120, 0);
     border-radius: 30px;
     padding: 15px;
 }
@@ -57,19 +57,22 @@ p {
 }
 table {
     margin: 2%;
-    padding: 10px;
+    padding: 0px;
 }
 th, td {
     margin: 10px;
     padding: 10px;
-    border: 1px double rgb(255, 192, 203);
-    border-radius: 3px;
+    border: 3px double rgb(120, 160, 120);
+    border-radius: 15px;
+}
+th {
+    border: 3px double rgb(0, 120, 0);
 }
 input {
     margin: 0px 10px;
 }
 nav {
-    background-color: rgb(120, 160, 120);
+    background-color: rgb(0, 120, 0);
     border-radius: 30px;
     margin: 10px;
     text-align: center;

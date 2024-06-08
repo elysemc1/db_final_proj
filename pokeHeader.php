@@ -22,17 +22,10 @@
 	echo '<nav>';
 
 	echo '<a href="index.php">Home</a>';
-
-	echo 'Pokemon -&gt; ';
-	echo '<a href="searchPokemon.php">Search</a>';
-	echo '<a href="comparePokemon.php">Compare</a>';
-	echo '<a href="viewPokemon.php">View</a>';
-	
-	echo 'Team -&gt; ';
-	echo '<a href="createTeam.php">Create</a>';
-	echo '<a href="deleteTeam.php">Delete</a>';
-	echo '<a href="updateTeam.php">Update</a>';
-	echo '<a href="viewTeam.php">View</a>';
+	echo '<a href="searchPokemon.php">Search Pokemon</a>';	
+	echo '<a href="createTeam.php">Create Team</a>';
+	echo '<a href="updateTeam.php">Update Team</a>';
+	echo '<a href="viewTeam.php">View Team</a>';
 
 	echo '</nav>';
 
