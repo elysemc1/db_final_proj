@@ -1,7 +1,8 @@
 <?php
-	include 'pokeConfig.php';
-  session_start();
-  if (isset($_SESSION["user_id"])) {
+
+include 'pokeHeader.php';
+
+if (isset($_SESSION["user_id"])) {
     session_unset();
     session_destroy();
     header("Location: index.php");
@@ -11,37 +12,32 @@
     //$_SESSION["user_id"] = $_POST["usernameInput"];
 
     // Retrieve the input value from the form
-    $username = $_POST['usernameInput'];
+    $userID = $_POST['userID'];
     //if user doesn't exist in database, add them
-    $findUserQuery = "SELECT user_id FROM Users WHERE user_name=\"$username\"";
-    $findUserResult = mysqli_query($link, $findUserQuery);
-    if ($findUserResult && empty($userResult = mysqli_fetch_all($findUserResult, MYSQLI_ASSOC))) {
-      //if find user failed
-      mysqli_free_result($findUserResult);
-      $addUserQuery = "INSERT INTO Users (user_name) VALUES (\"$username\")";
-      $addUserResult = mysqli_query($link, $addUserQuery);
-      $findUserQuery = "SELECT user_id FROM Users WHERE user_name=\"$username\"";
-      $findUserResult = mysqli_query($link, $findUserQuery);
-      //if $findUserResult fails or is still empty, refresh page?
-      $userResult = mysqli_fetch_all($findUserResult, MYSQLI_ASSOC);
-    }  //add else for bad orig $findUserResult?
-    $_SESSION["user_id"] = $userResult[0]["user_id"];
-
-    header("Location: index.php");  //navigate to homepage
-    exit();
+    //$findUserQuery = "SELECT Users.user_name, Users.user_id FROM Users WHERE user_id =\"$username\"";
+    $userQuery = "SELECT Users.user_name FROM Users WHERE user_id = $userID";
+    $result = $link->query($userQuery);
+    if (!$result) {
+        die("Query failed: " . $link->error);
+    }
+    $username = $result->fetch_assoc()["user_name"];
+    if (!$username) {
+        echo "Could not locate user with user ID $userID";
+    } else {
+        echo "Logged in as $username!";
+        $_SESSION["user_id"] = $userID;
+        header("Location: index.php");
+        exit();
+    }
   }
 ?>
-<!DOCTYPE html>
-  <!-- Sessions Code -->
-<html>
+
 <body>
   <h1>Login Page</h1>
+  <h3>Please enter your User ID</h3>
   <form action="" method="post" target="_self" name="loginForm">
-    <input type="text" id="usernameInput" name="usernameInput" pattern="[a-zA-Z0-9]+" maxlength="25" required>
+    <input type="text" id="userID" name="userID" pattern="[0-9]+" maxlength="25" required>
     <input type="submit" value="Login">
   </form>
-  <!-- make link here for continue as guest -->
-  <a href='index.php'>Continue as Guest</a>
-  
 </body>
 </html>

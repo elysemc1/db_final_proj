@@ -1,3 +1,8 @@
+-- Made by Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen
+-- Group 5
+
+
+
 -- ////////////////////////// 1. CREATE TABLES //////////////////////////
 -- --------------------- a) Pokemon Attributes -----------------------
 -- note that the order of these create statements matters due to dependencies
@@ -861,7 +866,7 @@ CALL delFromFavs('Ellie', 'Bulbasaur');
 
 -- 5) Update latest_updated_team if a user inserts, deletes, or updates their teams/members
 DELIMITER //
-CREATE TRIGGER teamUpdate AFTER UPDATE ON Team_Members
+CREATE TRIGGER teamUpdate AFTER UPDATE ON Teams
     FOR EACH ROW
     BEGIN
         UPDATE Users
@@ -877,7 +882,7 @@ AND team_id = 1
 AND pokemon_id = 1;
 -- another trigger for INSERT...
 DELIMITER //
-CREATE TRIGGER teamInsert AFTER INSERT ON Team_Members
+CREATE TRIGGER teamInsert AFTER INSERT ON Teams
     FOR EACH ROW
     BEGIN
         UPDATE Users
@@ -887,7 +892,7 @@ CREATE TRIGGER teamInsert AFTER INSERT ON Team_Members
 DELIMITER ;
 -- and another for DELETE
 DELIMITER //
-CREATE TRIGGER teamDelete AFTER DELETE ON Team_Members
+CREATE TRIGGER teamDelete AFTER DELETE ON Teams
     FOR EACH ROW
     BEGIN
         UPDATE Users
