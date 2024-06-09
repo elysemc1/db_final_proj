@@ -2,7 +2,7 @@
 <!-- Group 5 -->
  
 <?php
-session_start();
+
 include 'pokeHeader.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form action="updateTeam.php" method="post">
             <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>">
             <!-- added readonly attribute and forced session's user_id as the value below -->
-            User ID: <input type="text" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" readonly required><br>
+            User ID: <input type="text" name="user_id" value="<?php echo $team['user_id']; ?>" required><br>
             Team Name: <input type="text" name="team_name" value="<?php echo $team['team_name']; ?>" required><br>
             Select Pokémon: <br>
             <?php

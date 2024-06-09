@@ -2,16 +2,14 @@
 <!-- Group 5 -->
 
 <?php
-session_start();
 include 'pokeHeader.php';
 
 echo '<body>';
 
 $team_id = $_GET['team_id'];
-$user_id = $_SESSION["user_id"];
 
 // Delete the team
-$sql = "DELETE FROM Teams WHERE team_id = '$team_id' AND user_id = '$user_id'";
+$sql = "DELETE FROM Teams WHERE team_id = '$team_id'";
 if ($link->query($sql) === TRUE) {
     echo "Team deleted successfully";
 } else {
