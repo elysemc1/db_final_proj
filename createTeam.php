@@ -35,7 +35,6 @@ if (isset($_SESSION["user_id"])) {
         echo 'User ID: <input type="number" name="user_id" required><br>';
         echo 'Team Name: <input type="text" name="team_name" required><br>';
         echo 'Select Pokémon: <br>';
-            
         
         $sql = "SELECT pokemon_id, pokemon_name FROM Pokemon_Characters";
         $result = $link->query($sql);

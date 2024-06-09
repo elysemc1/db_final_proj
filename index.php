@@ -33,6 +33,7 @@ if (isset($_SESSION["user_id"])) {
     $link->close();
 }
 
+
 echo '</body>';
 echo '</html>';
 

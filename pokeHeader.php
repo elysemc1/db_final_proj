@@ -2,7 +2,7 @@
 <!-- Group 5 -->
 
 <?php
-
+	session_start();
 
 	// include the stuff to connect to the database
 	include 'pokeConfig.php';
@@ -26,6 +26,7 @@
 	} else {
 		echo '<a href="login.php">Logout</a>';
 	}
+
 	echo '<a href="index.php">Home</a>';
 	echo '<a href="searchPokemon.php">Search Pokemon</a>';	
 	echo '<a href="createTeam.php">Create Team</a>';
