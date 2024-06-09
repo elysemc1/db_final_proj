@@ -5,6 +5,8 @@
 
 include 'pokeHeader.php';
 
+echo "<body>";
+
 echo "<h2>Welcome to the Pokemon Database!</h2>";
 if (isset($_SESSION["user_id"])) {
     $userID = $_SESSION["user_id"];

@@ -4,7 +4,6 @@
 <?php
 include 'pokeHeader.php';
 
-echo '<html>';
 echo '<body>';
 
 if (isset($_SESSION["user_id"])) {

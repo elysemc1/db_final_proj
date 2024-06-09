@@ -29,7 +29,6 @@
 	echo '<a href="index.php">Home</a>';
 	echo '<a href="searchPokemon.php">Search Pokemon</a>';	
 	echo '<a href="createTeam.php">Create Team</a>';
-	echo '<a href="updateTeam.php">Update Team</a>';
 	echo '<a href="viewTeam.php">View Team</a>';
 
 	echo '</nav>';

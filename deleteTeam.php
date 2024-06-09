@@ -4,7 +4,6 @@
 <?php
 include 'pokeHeader.php';
 
-echo '<html>';
 echo '<body>';
 
 $team_id = $_GET['team_id'];

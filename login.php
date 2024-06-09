@@ -29,9 +29,7 @@ include 'pokeHeader.php';
     }
   }
 ?>
-<!DOCTYPE html>
-  <!-- Sessions Code -->
-<html>
+
 <body>
   <h1>Login Page</h1>
   <form action="" method="post" target="_self" name="loginForm">
