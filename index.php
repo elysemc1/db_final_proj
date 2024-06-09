@@ -23,7 +23,11 @@ if (isset($_SESSION["user_id"])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         echo "<h3>Welcome " . $row['user_name'] . "!</h3>";
-        echo "<p>Your User ID is $userID. The last team you created or modified had the Team ID " . $row['latest_team_id'] . ".</p>";
+        if ($row['latest_team_id'] == 0) {
+            echo "<p>Your User ID is $userID. The last team you created or modified was deleted.</p>";
+        } else {
+            echo "<p>Your User ID is $userID. The last team you created or modified was Team ID " . $row['latest_team_id'] . ".</p>";
+        }
     }
 
     $link->close();
