@@ -1,0 +1,35 @@
+[08-Jun-2024 15:31:47 America/Los_Angeles] PHP Warning:  Undefined variable $link in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:31:47 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php:19
+Stack trace:
+#0 {main}
+  thrown in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:33:24 America/Los_Angeles] PHP Warning:  Undefined variable $link in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:33:24 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php:19
+Stack trace:
+#0 {main}
+  thrown in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:33:33 America/Los_Angeles] PHP Warning:  Undefined variable $link in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:33:33 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php:19
+Stack trace:
+#0 {main}
+  thrown in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:34:43 America/Los_Angeles] PHP Warning:  Undefined variable $link in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:34:43 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php:19
+Stack trace:
+#0 {main}
+  thrown in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:35:32 America/Los_Angeles] PHP Warning:  Undefined variable $link in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:35:32 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php:19
+Stack trace:
+#0 {main}
+  thrown in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:40:25 America/Los_Angeles] PHP Warning:  Undefined variable $link in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:40:25 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php:19
+Stack trace:
+#0 {main}
+  thrown in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:40:32 America/Los_Angeles] PHP Warning:  Undefined variable $link in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19
+[08-Jun-2024 15:40:32 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php:19
+Stack trace:
+#0 {main}
+  thrown in /nfs/stak/users/palmjace/public_html/db_final_proj/viewPokemon.php on line 19

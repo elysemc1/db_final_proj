@@ -1,3 +1,6 @@
+<!-- Made by Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen -->
+<!-- Group 5 -->
+
 <?php
     mysqli_report(MYSQLI_REPORT_ERROR );
 
@@ -15,6 +18,8 @@
 	if($link === false){
 		exit("ERROR: Could not connect. " . mysqli_connect_error());
 	}	
+
+	session_start();
 
     /* TODO:
 

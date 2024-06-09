@@ -1,14 +1,12 @@
+<!-- Made by Jace Palmer, Ellie Cohen, Jacob Strand, Lauren Edwardsen -->
+<!-- Group 5 -->
+
 <?php
 include 'pokeHeader.php';
 
-echo '<html>';
 echo '<body>';
 
 $team_id = $_GET['team_id'];
-
-// Delete team members first
-$sql = "DELETE FROM Team_Members WHERE team_id = '$team_id'";
-$link->query($sql);
 
 // Delete the team
 $sql = "DELETE FROM Teams WHERE team_id = '$team_id'";

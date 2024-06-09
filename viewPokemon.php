@@ -1,61 +1,83 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Template</title>
-		<link rel="stylesheet" href="index.css">
-	</head>
-<body>
-
 <?php
-//   Change for your username, password and datadase name which is your username 
+include 'pokeHeader.php';
+echo "<body>";
 
-define('DB_SERVER', 'classmysql.engr.oregonstate.edu');
-define('DB_USERNAME', 'cs340_palmjace');
-define('DB_PASSWORD', '1982');
-define('DB_NAME', 'cs340_palmjace');
- 
-	// Attempt to connect to MySQL database
-	$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
- 
-	// Check connection
-	if($link === false){
-		exit("ERROR: Could not connect. " . mysqli_connect_error());
-	}	
-	
-	/* TODO:
+// Get the Pokémon ID from the URL parameter
+if (isset($_GET['pokemon_id'])) {
+    $pokemon_id = intval($_GET['pokemon_id']);  // Ensure the ID is treated as an integer
 
-	MUST DO
-	- The user can create, edit, and delete teams of Pokemon to simulate in-game teams
-	- The user can search for Pokemon by type, number, or name
-	- When a user is viewing a Pokemon, they can also see its evolution options
-	- A user can compare two different Pokemon and identify which is stronger 
-	- Users can add Pokemon to their ‘favorites’ list
+    // Fetch Pokémon details
+    $sql = "SELECT pc.*, GROUP_CONCAT(pt.type_name SEPARATOR ', ') AS types
+            FROM Pokemon_Characters pc
+            LEFT JOIN Pokemon_Types pt ON pc.pokemon_id = pt.pokemon_id
+            WHERE pc.pokemon_id = ?";
+    $stmt = $link->prepare($sql);
+    if (!$stmt) {
+        error_log("Error preparing statement: " . $link->error);
+        die("Error preparing statement: " . $link->error);
+    }
+    $stmt->bind_param('i', $pokemon_id);
+    if (!$stmt->execute()) {
+        error_log("Error executing statement: " . $stmt->error);
+        die("Error executing statement: " . $stmt->error);
+    }
+    $result = $stmt->get_result();
+    $pokemon = $result->fetch_assoc();
+    
+    if ($pokemon) {
+        echo "<h2>" . htmlspecialchars($pokemon['pokemon_name']) . "</h2>";
 
-	MUST DO REQUIREMENTS
-	- The user can select up to 6 Pokemon for their team
-	- The user can have a maximum of 30 favorites 
-	- The user can compare only 2 Pokemon at once
-	- Each Pokemon can be identified uniquely by an ID
-	- Each attack will be uniquely identified by its name
-	- Each Pokemon that is added to the database must include one or more types
+        echo "<table>";
+        echo "<tr><th>Image</th><th>Number</th><th>Types</th><th>Generation</th><th>Height</th><th>Weight</th><th>Gender Ratio</th><th>Base Experience</th><th>Next Evolution</th></tr>";
+        
+		echo "<tr><td><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" . htmlspecialchars($pokemon_id) . ".png' alt='Image of " . htmlspecialchars($pokemon['pokemon_name']) . "'></td>";
+        echo "<td>" . htmlspecialchars($pokemon['pokemon_id']) . "</td>";
+		echo "<td>" . htmlspecialchars($pokemon['types']) . "</td>";
+		echo "<td>" . htmlspecialchars($pokemon['generation']) . "</td>";
+        echo "<td>" . htmlspecialchars($pokemon['height']) . " meters</td>";
+        echo "<td>" . htmlspecialchars($pokemon['weight']) . " kilograms</td>";
+        echo "<td>" . htmlspecialchars($pokemon['gender_ratio']) . "</td>";
+        echo "<td>" . htmlspecialchars($pokemon['base_exp']) . "</td>";
+        
 
-	STRETCH GOALS
-	- The user could test their team in an attack against other teams
-	- The user can select up to 5 Pokemon in the comparison screen
-	
-	*/
+        // Fetch evolution options
+        $sql = "SELECT e.evolved_id, p.pokemon_name AS evolved_name 
+                FROM Evolutions e 
+                JOIN Pokemon_Characters p ON e.evolved_id = p.pokemon_id 
+                WHERE e.original_id = ?";
+        $stmt = $link->prepare($sql);
+        if (!$stmt) {
+            error_log("Error preparing statement: " . $link->error);
+            die("Error preparing statement: " . $link->error);
+        }
+        $stmt->bind_param('i', $pokemon_id);
+        if (!$stmt->execute()) {
+            error_log("Error executing statement: " . $stmt->error);
+            die("Error executing statement: " . $stmt->error);
+        }
+        $result = $stmt->get_result();
 
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Generate the link to the Pokémon's view page
+                echo "<td><a href='viewPokemon.php?pokemon_id=" . htmlspecialchars($row['evolved_id']) . "'>" . htmlspecialchars($row['evolved_name']) . "</a></td>";
+            }
+        } else {
+            echo "<td>This Pokémon has no evolutions.</td>";
+        }
+        echo "</tr></table>";
 
+    } else {
+        echo "<p>Pokémon not found.</p>";
+    }
 
+    $stmt->close();
+} else {
+    echo "<p>No Pokémon ID provided.</p>";
+}
 
-	// free result, use after you do a query
-	mysqli_free_result($result); 
+$link->close();
 
-	// close connection to db, use after done doing queries for page
-	mysqli_close($link); 
+echo '</body>';
+echo '</html>';
 ?>
-</body>
-
-</html>
-
-	
